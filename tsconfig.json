@@ -1,23 +1,20 @@
 {
-  "compilerOptions": {
-    "target": "ES2022",
-    "module": "Node16",
-    "lib": ["ES2022"],
-    "moduleResolution": "Node16",
-    "rootDir": ".",
-    "outDir": "build",
-    "allowSyntheticDefaultImports": true,
-    "importHelpers": true,
-    "alwaysStrict": true,
-    "sourceMap": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitAny": false,
-    "noImplicitThis": false,
-    "strictNullChecks": false
-  },
-  "include": ["src/**/*", "__tests__/**/*"]
+	"extends": "./tsconfig.paths.json",
+	"compilerOptions": {
+		"lib": ["ESNext"],
+		"moduleResolution": "node",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"removeComments": true,
+		"sourceMap": true,
+		"target": "ES2021",
+		"outDir": "lib",
+		"strictNullChecks": true,
+		"esModuleInterop": true
+	},
+	"include": ["src/**/*.ts", "__tests__/**/*", "serverless.ts"],
+	"exclude": ["node_modules/**/*", ".serverless/**/*", ".webpack/**/*", "_warmup/**/*", ".vscode/**/*", "./coverage"],
+	"ts-node": {
+		"require": ["tsconfig-paths/register"]
+	}
 }

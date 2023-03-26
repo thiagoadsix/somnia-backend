@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+  localstack_somnia:
+    container_name: 'localstack_somnia'
+    image: localstack/localstack
+    network_mode: bridge
+    ports:
+      - '4566-4583:4566-4583'
+    environment:
+      - DEBUG=1
+    volumes:
+      - '${TEMPDIR:-/var/lib/localstack}:/var/lib/localstack'
+      - '/var/run/docker.sock:/var/run/docker.sock'
