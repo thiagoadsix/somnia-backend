@@ -4,10 +4,13 @@
 	"semi": false,
 	"useTabs": true,
 	"tabWidth": 2,
-	"printWidth": 160,
+	"printWidth": 120,
 	"overrides": [
 		{
-			"files": ["*.ts", "*.mts"],
+			"files": [
+				"*.ts",
+				"*.mts"
+			],
 			"options": {
 				"parser": "typescript"
 			}

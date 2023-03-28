@@ -46,6 +46,18 @@ const serverlessConfiguration: AWS = {
 					}
 				}
 			]
+		},
+		'interpret-dream': {
+			handler: './src/application/lambdas/dream/interpret-dream.handler',
+			timeout: 300,
+			events: [
+				{
+					http: {
+						method: 'POST',
+						path: 'interpret/dream/{id}'
+					}
+				}
+			]
 		}
 	},
 	resources: {

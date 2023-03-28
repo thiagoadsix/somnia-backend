@@ -30,21 +30,35 @@ export class DreamRepository implements DreamRepositoryContract {
 		const params: DocumentClient.UpdateItemInput = {
 			TableName: this.tableName,
 			Key: { id },
-			UpdateExpression: 'set #title = :title, #dream = :dream, #dreamInterpreted = :dreamInterpreted, #tags = :tags, #liked = :liked',
-			ExpressionAttributeNames: {
-				'#title': 'title',
-				'#dream': 'dream',
-				'#dreamInterpreted': 'dreamInterpreted',
-				'#tags': 'tags',
-				'#liked': 'liked'
-			},
-			ExpressionAttributeValues: {
-				':title': data.title,
-				':dream': data.dream,
-				':dreamInterpreted': data.dreamInterpreted,
-				':tags': data.tags,
-				':liked': data.liked
+			UpdateExpression: 'set',
+			ExpressionAttributeNames: {},
+			ExpressionAttributeValues: {}
+		}
+
+		const updateFields = [
+			{ field: 'title', attr: '#title', value: ':title' },
+			{ field: 'dream', attr: '#dream', value: ':dream' },
+			{ field: 'dreamInterpreted', attr: '#dreamInterpreted', value: ':dreamInterpreted' },
+			{ field: 'tags', attr: '#tags', value: ':tags' },
+			{ field: 'liked', attr: '#liked', value: ':liked' }
+		]
+
+		updateFields.forEach(({ field, attr, value }) => {
+			if (data[field] !== undefined) {
+				params.UpdateExpression += ` ${attr} = ${value},`
+
+				if (params && params.ExpressionAttributeNames) {
+					params.ExpressionAttributeNames[attr] = field
+				}
+
+				if (params && params.ExpressionAttributeValues) {
+					params.ExpressionAttributeValues[value] = data[field]
+				}
 			}
+		})
+
+		if (params?.UpdateExpression?.endsWith(',')) {
+			params.UpdateExpression = params.UpdateExpression.slice(0, -1)
 		}
 
 		await this.documentClient.update(params).promise()

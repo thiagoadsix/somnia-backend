@@ -1,5 +1,6 @@
 import { Dream } from '@domain/entities/dream'
-import { DreamRepositoryContract } from '@domain/usecases/contracts/dream.repository.contract'
+
+import { DreamRepositoryContract } from '../contracts/dream.repository.contract'
 
 export class CreateDreamUseCase {
 	constructor(private readonly dreamRepositoryContract: DreamRepositoryContract) {
