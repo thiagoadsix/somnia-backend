@@ -3,7 +3,7 @@ import { Configuration, OpenAIApi } from 'openai'
 import { Dream } from '@domain/entities/dream'
 import { OpenAIApiContract } from '@domain/usecases/contracts/api/open-ai.api.contract'
 
-import { InterpretationDreamError } from '@infrastructure/exceptions/open-ai/interpretation-dream.error'
+import { InterpretationDreamError } from '@infrastructure/errors/open-ai/interpretation-dream.error'
 
 export class OpenAI implements OpenAIApiContract {
 	private readonly configuration: Configuration

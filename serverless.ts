@@ -58,6 +58,18 @@ const serverlessConfiguration: AWS = {
 					}
 				}
 			]
+		},
+		'find-dream-by-id': {
+			handler: './src/application/lambdas/dream/find-dream-by-id.handler',
+			timeout: 30,
+			events: [
+				{
+					http: {
+						method: 'GET',
+						path: 'dream/{id}'
+					}
+				}
+			]
 		}
 	},
 	resources: {

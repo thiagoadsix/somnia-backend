@@ -2,7 +2,7 @@ import { DynamoDB } from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 
 import { Dream } from '@domain/entities/dream'
-import { DreamRepositoryContract } from '@domain/usecases/contracts/dream.repository.contract'
+import { DreamRepositoryContract } from '@domain/usecases/contracts/repositories/dream.repository.contract'
 
 export class DreamRepository implements DreamRepositoryContract {
 	private readonly tableName: string

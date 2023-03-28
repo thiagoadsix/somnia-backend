@@ -1,4 +1,4 @@
-import { DreamRepositoryContract } from '@domain/usecases/contracts/dream.repository.contract'
+import { DreamRepositoryContract } from '@domain/usecases/contracts/repositories/dream.repository.contract'
 
 import { OpenAIApiContract } from '../contracts/api/open-ai.api.contract'
 

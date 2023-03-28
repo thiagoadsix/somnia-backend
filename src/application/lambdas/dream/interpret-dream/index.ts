@@ -1,6 +1,6 @@
 import { APIGatewayProxyHandler } from 'aws-lambda'
 
-import { AppError } from '@application/exceptions/app.error'
+import { AppError } from '@application/errors/app.error'
 import { usecase } from '@application/factories/dream/interpret-dream-factory'
 
 export const handler: APIGatewayProxyHandler = async (event) => {
