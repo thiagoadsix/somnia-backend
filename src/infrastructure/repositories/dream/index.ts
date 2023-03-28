@@ -64,7 +64,7 @@ export class DreamRepository implements DreamRepositoryContract {
 		await this.documentClient.update(params).promise()
 	}
 
-	async delete(id: string): Promise<void> {
+	async deleteById(id: string): Promise<void> {
 		const params: DocumentClient.DeleteItemInput = {
 			TableName: this.tableName,
 			Key: { id }

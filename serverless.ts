@@ -70,6 +70,18 @@ const serverlessConfiguration: AWS = {
 					}
 				}
 			]
+		},
+		'delete-dream-by-id': {
+			handler: './src/application/lambdas/dream/delete-dream-by-id.handler',
+			timeout: 30,
+			events: [
+				{
+					http: {
+						method: 'DELETE',
+						path: 'dream/{id}'
+					}
+				}
+			]
 		}
 	},
 	resources: {
