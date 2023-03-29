@@ -1,22 +1,17 @@
 import { APIGatewayProxyHandler } from 'aws-lambda'
 
 import { AppError } from '@application/errors/app.error'
-import { usecase } from '@application/factories/dream/create-dream-factory'
+import { usecase } from '@application/factories/dream/find-all-dreams-by-user-factory'
 
 export const handler: APIGatewayProxyHandler = async (event) => {
 	try {
-		const { userId, title, dream, tags } = JSON.parse(event.body ?? JSON.stringify({}))
+		const userId = event.pathParameters?.userId ?? ''
 
-		const newDream = await usecase.execute({
-			userId,
-			title,
-			dream,
-			tags
-		})
+		const dream = await usecase.execute(userId)
 
 		const response = {
 			statusCode: 201,
-			body: JSON.stringify(newDream)
+			body: JSON.stringify(dream)
 		}
 
 		return response

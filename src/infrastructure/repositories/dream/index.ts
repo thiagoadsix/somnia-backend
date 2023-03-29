@@ -40,7 +40,8 @@ export class DreamRepository implements DreamRepositoryContract {
 			{ field: 'dream', attr: '#dream', value: ':dream' },
 			{ field: 'dreamInterpreted', attr: '#dreamInterpreted', value: ':dreamInterpreted' },
 			{ field: 'tags', attr: '#tags', value: ':tags' },
-			{ field: 'liked', attr: '#liked', value: ':liked' }
+			{ field: 'liked', attr: '#liked', value: ':liked' },
+			{ field: 'userId', attr: '#userId', value: ':userId' }
 		]
 
 		updateFields.forEach(({ field, attr, value }) => {
@@ -84,9 +85,13 @@ export class DreamRepository implements DreamRepositoryContract {
 		return result.Item as Dream
 	}
 
-	async findAll(): Promise<Dream[]> {
+	async findAllByUser(userId: string): Promise<Dream[]> {
 		const params: DocumentClient.ScanInput = {
-			TableName: this.tableName
+			TableName: this.tableName,
+			FilterExpression: 'userId = :userId',
+			ExpressionAttributeValues: {
+				':userId': userId
+			}
 		}
 
 		const result = await this.documentClient.scan(params).promise()

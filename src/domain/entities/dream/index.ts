@@ -2,6 +2,7 @@ import { v4 as uuidV4 } from 'uuid'
 
 export class Dream {
 	readonly id: string
+	readonly userId: string
 	readonly title: string
 	readonly dream: string
 	readonly dreamInterpreted?: string
