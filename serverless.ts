@@ -82,6 +82,18 @@ const serverlessConfiguration: AWS = {
 					}
 				}
 			]
+		},
+		'update-dream-by-id': {
+			handler: './src/application/lambdas/dream/update-dream-by-id.handler',
+			timeout: 30,
+			events: [
+				{
+					http: {
+						method: 'PATCH',
+						path: 'dream/{id}'
+					}
+				}
+			]
 		}
 	},
 	resources: {

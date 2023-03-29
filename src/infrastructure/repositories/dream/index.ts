@@ -26,7 +26,7 @@ export class DreamRepository implements DreamRepositoryContract {
 		await this.documentClient.put(params).promise()
 	}
 
-	async update(id: string, data: Partial<Dream>): Promise<void> {
+	async updateById(id: string, data: Partial<Dream>): Promise<void> {
 		const params: DocumentClient.UpdateItemInput = {
 			TableName: this.tableName,
 			Key: { id },

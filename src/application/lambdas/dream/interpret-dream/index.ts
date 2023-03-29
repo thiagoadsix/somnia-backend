@@ -8,13 +8,13 @@ export const handler: APIGatewayProxyHandler = async (event) => {
 		const id = event.pathParameters?.id ?? ''
 		const { dream } = JSON.parse(event.body ?? JSON.stringify({}))
 
-		const newDream = await usecase.execute(id, {
+		const execution = await usecase.execute(id, {
 			dream
 		})
 
 		const response = {
 			statusCode: 201,
-			body: JSON.stringify(newDream)
+			body: JSON.stringify(execution)
 		}
 
 		return response

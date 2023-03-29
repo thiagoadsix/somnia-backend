@@ -4,7 +4,9 @@ import { DreamNotFoundError } from '@domain/errors/dream-not-found.error'
 import { DreamRepositoryContract } from '../contracts/repositories/dream.repository.contract'
 
 export class FindDreamByIdUseCase {
-	constructor(private readonly dreamRepositoryContract: DreamRepositoryContract) {}
+	constructor(private readonly dreamRepositoryContract: DreamRepositoryContract) {
+		this.dreamRepositoryContract = dreamRepositoryContract
+	}
 
 	async execute(id: string): FindDreamByIdUseCase.Output {
 		const dream = await this.dreamRepositoryContract.findById(id)

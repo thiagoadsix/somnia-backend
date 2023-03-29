@@ -16,7 +16,7 @@ export class InterpretDreamUseCase {
 
 		const dreamInterpreted = await this.openAIApi.interpretDream({ dream })
 
-		await this.dreamRepositoryContract.update(id, { dreamInterpreted })
+		await this.dreamRepositoryContract.updateById(id, { dreamInterpreted })
 	}
 }
 
@@ -25,5 +25,5 @@ export namespace InterpretDreamUseCase {
 		dream: string
 	}
 
-	export type Output = void
+	export type Output = Promise<void>
 }
