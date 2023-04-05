@@ -36,7 +36,7 @@ const serverlessConfiguration: AWS = {
 	},
 	functions: {
 		'create-dream': {
-			handler: './src/application/lambdas/dream/create-dream.handler',
+			handler: './src/application/lambdas/dream/create-dream/handler.run',
 			timeout: 30,
 			events: [
 				{

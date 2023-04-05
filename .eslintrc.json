@@ -10,17 +10,58 @@
 		"sourceType": "module",
 		"ecmaVersion": 2020
 	},
-	"plugins": ["@typescript-eslint", "jest", "simple-import-sort"],
-	"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:jest/recommended", "prettier"],
+	"plugins": [
+		"@typescript-eslint",
+		"jest",
+		"simple-import-sort"
+	],
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:jest/recommended",
+		"prettier"
+	],
 	"rules": {
 		"@typescript-eslint/explicit-function-return-type": "warn",
 		"@typescript-eslint/no-namespace": "off",
 		"simple-import-sort/imports": [
 			"error",
 			{
-				"groups": [["^\\u0000"], ["^@?\\w"], ["^@domain"], ["^@infrastructure"], ["^@application"], ["^\\."], ["^~"], ["^\\?\\w"], ["^\\.\\w"], ["^\\.\\/\\w"]]
+				"groups": [
+					[
+						"^\\u0000"
+					],
+					[
+						"^@?\\w"
+					],
+					[
+						"^@domain"
+					],
+					[
+						"^@infrastructure"
+					],
+					[
+						"^@application"
+					],
+					[
+						"^\\."
+					],
+					[
+						"^~"
+					],
+					[
+						"^\\?\\w"
+					],
+					[
+						"^\\.\\w"
+					],
+					[
+						"^\\.\\/\\w"
+					]
+				]
 			}
 		],
-		"simple-import-sort/exports": "error"
+		"simple-import-sort/exports": "error",
+		"@typescript-eslint/no-non-null-assertion": "off"
 	}
 }
