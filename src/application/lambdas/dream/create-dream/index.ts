@@ -2,7 +2,7 @@ import { APIGatewayProxyResult } from 'aws-lambda'
 import { instanceToPlain } from 'class-transformer'
 
 import { usecase } from '@application/factories/dream/create-dream-factory'
-import { LambdaHandlerAbstract } from '@application/lambdas/abstract/lambda-handler.abstract'
+import { EventType, LambdaHandlerAbstract } from '@application/lambdas/abstract/lambda-handler.abstract'
 
 import { CreateDreamInput } from './types'
 
@@ -27,5 +27,9 @@ export class CreateDreamHandler extends LambdaHandlerAbstract<CreateDreamInput> 
 
 	protected getValidationClass(): new () => CreateDreamInput {
 		return CreateDreamInput
+	}
+
+	protected eventType(): EventType {
+		return 'body'
 	}
 }

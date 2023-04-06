@@ -1,39 +1,30 @@
-import { APIGatewayProxyHandler } from 'aws-lambda'
+import { APIGatewayProxyResult } from 'aws-lambda'
+import { instanceToPlain } from 'class-transformer'
 
-import { AppError } from '@application/errors/app.error'
 import { usecase } from '@application/factories/dream/delete-dream-by-id-factory'
+import { EventType, LambdaHandlerAbstract } from '@application/lambdas/abstract/lambda-handler.abstract'
 
-export const handler: APIGatewayProxyHandler = async (event) => {
-	try {
-		const id = event.pathParameters?.id ?? ''
+import { DeleteDreamByIdInput } from './types'
 
-		const execution = await usecase.execute(id)
+export class DeleteDreamByIdHandler extends LambdaHandlerAbstract<DeleteDreamByIdInput> {
+	protected async handler(validatedBody: DeleteDreamByIdInput): Promise<APIGatewayProxyResult> {
+		const { id } = validatedBody
+
+		const newDream = await usecase.execute(id)
 
 		const response = {
 			statusCode: 201,
-			body: JSON.stringify(execution)
+			body: JSON.stringify(instanceToPlain(newDream))
 		}
 
 		return response
-	} catch (error) {
-		if (error instanceof AppError) {
-			const response = {
-				statusCode: error.statusCode,
-				body: JSON.stringify({
-					message: error.message
-				})
-			}
+	}
 
-			return response
-		}
+	protected getValidationClass(): new () => DeleteDreamByIdInput {
+		return DeleteDreamByIdInput
+	}
 
-		const response = {
-			statusCode: 500,
-			body: JSON.stringify({
-				message: 'Internal server error'
-			})
-		}
-
-		return response
+	protected eventType(): EventType {
+		return 'pathParameters'
 	}
 }
