@@ -6,7 +6,7 @@ import { DreamNotFoundError } from '@domain/errors/dream-not-found.error'
 
 import { ValidationError } from '@application/errors'
 
-export type EventType = 'body' | 'pathParameters' | 'queryStringParameters'
+export type EventType = 'body' | 'pathParameters' | 'queryStringParameters' | 'body&path'
 
 abstract class LambdaHandlerAbstract<T> {
 	protected abstract handler(validatedBody: T): Promise<APIGatewayProxyResult>
@@ -24,6 +24,14 @@ abstract class LambdaHandlerAbstract<T> {
 			} else if (this.eventType() === 'pathParameters') {
 				console.log('Path parameters ->', JSON.stringify(event.pathParameters))
 				data = JSON.parse(JSON.stringify(event.pathParameters) ?? '{}')
+			} else if (this.eventType() === 'body&path') {
+				const body = JSON.parse(event.body ?? '{}')
+				const path = JSON.parse(JSON.stringify(event.pathParameters) ?? '{}')
+
+				data = {
+					...body,
+					...path
+				}
 			}
 
 			const validatedBody = await this.validate(data)

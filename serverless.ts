@@ -84,7 +84,7 @@ const serverlessConfiguration: AWS = {
 			]
 		},
 		'interpret-dream': {
-			handler: './src/application/lambdas/dream/interpret-dream.handler',
+			handler: './src/application/lambdas/dream/interpret-dream/handler.run',
 			timeout: 300,
 			events: [
 				{

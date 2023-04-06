@@ -1,44 +1,30 @@
-import { APIGatewayProxyHandler } from 'aws-lambda'
+import { APIGatewayProxyResult } from 'aws-lambda'
+import { instanceToPlain } from 'class-transformer'
 
-import { AppError } from '@application/errors/app.error'
 import { usecase } from '@application/factories/dream/interpret-dream-factory'
+import { EventType, LambdaHandlerAbstract } from '@application/lambdas/abstract/lambda-handler.abstract'
 
-export const handler: APIGatewayProxyHandler = async (event) => {
-	try {
-		const id = event.pathParameters?.id ?? ''
-		const { dream } = JSON.parse(event.body ?? JSON.stringify({}))
+import { InterpretDreamInput } from './types'
 
-		const execution = await usecase.execute(id, {
-			dream
-		})
+export class InterpretDreamHandler extends LambdaHandlerAbstract<InterpretDreamInput> {
+	protected async handler(validatedBody: InterpretDreamInput): Promise<APIGatewayProxyResult> {
+		const { id, ...input } = validatedBody
+
+		const newDream = await usecase.execute(id, { ...input })
 
 		const response = {
-			statusCode: 201,
-			body: JSON.stringify(execution)
+			statusCode: 200,
+			body: JSON.stringify(instanceToPlain(newDream))
 		}
 
 		return response
-	} catch (error) {
-		if (error instanceof AppError) {
-			const response = {
-				statusCode: error.statusCode,
-				body: JSON.stringify({
-					message: error.message
-				})
-			}
+	}
 
-			return response
-		}
+	protected getValidationClass(): new () => InterpretDreamInput {
+		return InterpretDreamInput
+	}
 
-		const response = {
-			statusCode: 500,
-			body: JSON.stringify({
-				message: 'Internal server error'
-			})
-		}
-
-		console.error(JSON.stringify(error))
-
-		return response
+	protected eventType(): EventType {
+		return 'body&path'
 	}
 }

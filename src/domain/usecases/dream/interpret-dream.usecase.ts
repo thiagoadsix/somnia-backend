@@ -12,9 +12,9 @@ export class InterpretDreamUseCase {
 	}
 
 	async execute(id: string, input: InterpretDreamUseCase.Input): Promise<InterpretDreamUseCase.Output> {
-		const { dream } = input
+		const { dream, userId } = input
 
-		const dreamInterpreted = await this.openAIApi.interpretDream({ dream })
+		const dreamInterpreted = await this.openAIApi.interpretDream({ dream, userId })
 
 		await this.dreamRepositoryContract.updateById(id, { dreamInterpreted })
 	}
@@ -23,6 +23,7 @@ export class InterpretDreamUseCase {
 export namespace InterpretDreamUseCase {
 	export type Input = {
 		dream: string
+		userId: string
 	}
 
 	export type Output = Promise<void>

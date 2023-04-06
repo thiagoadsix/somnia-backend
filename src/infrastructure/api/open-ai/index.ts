@@ -16,7 +16,7 @@ export class OpenAI implements OpenAIApiContract {
 		this.openAIApi = new OpenAIApi(this.configuration)
 	}
 
-	async interpretDream(input: Pick<Dream, 'dream'>): Promise<string> {
+	async interpretDream(input: Pick<Dream, 'dream' | 'userId'>): Promise<string> {
 		const prompt = `Interprete o sonho: ${input.dream}. Traga detalhes na interpretação, seja livre e criativo para interpretar cada parte do sonho. Explique parte por parte. Seja detalhista na explicação. A explicação precisar ser realizada de maneira séria.`
 
 		try {
@@ -27,7 +27,8 @@ export class OpenAI implements OpenAIApiContract {
 				temperature: 0.2,
 				stop: ['Fim da interpretação.', 'Obrigado por compartilhar seu sonho.'],
 				presence_penalty: 0.5,
-				frequency_penalty: 0.5
+				frequency_penalty: 0.5,
+				user: input.userId
 			})
 
 			const message = response.data.choices.shift()?.message?.content
@@ -38,6 +39,7 @@ export class OpenAI implements OpenAIApiContract {
 
 			return message
 		} catch (error) {
+			console.error('Error on OpenAI', JSON.stringify(error))
 			throw new Error('Was not possible to interpret the dream')
 		}
 	}
