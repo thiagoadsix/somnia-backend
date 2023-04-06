@@ -3,7 +3,7 @@ import { APIGatewayProxyHandler } from 'aws-lambda'
 import { DeleteDreamByIdHandler } from './index'
 
 export const run: APIGatewayProxyHandler = async (event) => {
-	const createDreamHandler = new DeleteDreamByIdHandler()
+	const deleteDreamByIdHandler = new DeleteDreamByIdHandler()
 
-	return createDreamHandler.execute(event)
+	return deleteDreamByIdHandler.execute(event)
 }

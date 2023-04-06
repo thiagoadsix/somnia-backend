@@ -14,10 +14,13 @@ abstract class LambdaHandlerAbstract<T> {
 
 		try {
 			if (this.eventType() === 'body') {
+				console.log('Body ->', JSON.stringify(event.body))
 				data = JSON.parse(event.body ?? '{}')
 			} else if (this.eventType() === 'queryStringParameters') {
+				console.log('Query string parameters ->', JSON.stringify(event.queryStringParameters))
 				data = JSON.parse(JSON.stringify(event.queryStringParameters) ?? '{}')
 			} else if (this.eventType() === 'pathParameters') {
+				console.log('Path parameters ->', JSON.stringify(event.pathParameters))
 				data = JSON.parse(JSON.stringify(event.pathParameters) ?? '{}')
 			}
 

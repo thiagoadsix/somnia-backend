@@ -59,6 +59,18 @@ const serverlessConfiguration: AWS = {
 				}
 			]
 		},
+		'find-all-dreams-by-user': {
+			handler: './src/application/lambdas/dream/find-all-dreams-by-user/handler.run',
+			timeout: 30,
+			events: [
+				{
+					http: {
+						method: 'GET',
+						path: 'dream/user/{userId}'
+					}
+				}
+			]
+		},
 		'interpret-dream': {
 			handler: './src/application/lambdas/dream/interpret-dream.handler',
 			timeout: 300,
@@ -91,18 +103,6 @@ const serverlessConfiguration: AWS = {
 					http: {
 						method: 'PATCH',
 						path: 'dream/{id}'
-					}
-				}
-			]
-		},
-		'find-all-dreams-by-user': {
-			handler: './src/application/lambdas/dream/find-all-dreams-by-user.handler',
-			timeout: 30,
-			events: [
-				{
-					http: {
-						method: 'GET',
-						path: 'dream/user/{id}'
 					}
 				}
 			]

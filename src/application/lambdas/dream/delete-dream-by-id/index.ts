@@ -13,7 +13,7 @@ export class DeleteDreamByIdHandler extends LambdaHandlerAbstract<DeleteDreamByI
 		const newDream = await usecase.execute(id)
 
 		const response = {
-			statusCode: 201,
+			statusCode: 200,
 			body: JSON.stringify(instanceToPlain(newDream))
 		}
 
