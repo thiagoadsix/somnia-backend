@@ -71,6 +71,18 @@ const serverlessConfiguration: AWS = {
 				}
 			]
 		},
+		'find-dream-by-id': {
+			handler: './src/application/lambdas/dream/find-dream-by-id/handler.run',
+			timeout: 30,
+			events: [
+				{
+					http: {
+						method: 'GET',
+						path: 'dream/{id}'
+					}
+				}
+			]
+		},
 		'interpret-dream': {
 			handler: './src/application/lambdas/dream/interpret-dream.handler',
 			timeout: 300,
@@ -79,18 +91,6 @@ const serverlessConfiguration: AWS = {
 					http: {
 						method: 'POST',
 						path: 'interpret/dream/{id}'
-					}
-				}
-			]
-		},
-		'find-dream-by-id': {
-			handler: './src/application/lambdas/dream/find-dream-by-id.handler',
-			timeout: 30,
-			events: [
-				{
-					http: {
-						method: 'GET',
-						path: 'dream/{id}'
 					}
 				}
 			]

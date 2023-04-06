@@ -2,6 +2,8 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import { plainToClass } from 'class-transformer'
 import { validate } from 'class-validator'
 
+import { DreamNotFoundError } from '@domain/errors/dream-not-found.error'
+
 import { ValidationError } from '@application/errors'
 
 export type EventType = 'body' | 'pathParameters' | 'queryStringParameters'
@@ -40,7 +42,16 @@ abstract class LambdaHandlerAbstract<T> {
 				}
 			}
 
-			console.log('Unknown error: ' + JSON.stringify(error))
+			if (error instanceof DreamNotFoundError) {
+				return {
+					statusCode: error.statusCode,
+					body: JSON.stringify({
+						message: error.message
+					})
+				}
+			}
+
+			console.log('Unknown error: ' + error)
 
 			return {
 				statusCode: 500,
