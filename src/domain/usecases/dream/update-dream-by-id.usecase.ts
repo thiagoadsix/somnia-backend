@@ -18,7 +18,7 @@ export class UpdateDreamByIdUseCase {
 }
 
 export namespace UpdateDreamByIdUseCase {
-	export type Input = Partial<Omit<Dream, 'id' | 'dreamInterpreted' | 'liked' | 'createdAt'>>
+	export type Input = Partial<Omit<Dream, 'id' | 'userId' | 'dreamInterpreted' | 'liked' | 'createdAt'>>
 
 	export type Output = Promise<void>
 }
